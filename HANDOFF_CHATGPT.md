@@ -148,4 +148,4 @@ Os espetáculos cadastrados atualmente no site contam com links diretos da **Sym
 * **Recursos preservados:** `CNAME`, `.nojekyll`, favicons e todo o conteúdo existente de `assets/`.
 * **Recursos usados pela nova home:** `event-vivaldi.jpg`, `event-trilhas-geek.jpg`, `event-tributo-porteno.jpg`, `event-agora-e-que-sao-elas.jpg`, `event-travessia-encantada.jpg`, `hero-theater-BQCT0Xtm.jpg` e `teatro-logo-branco-C_85Q_MG.png`.
 * **Referência para reversão:** `331553eebeb1fee10521eba40c9189caab2bf18d` (estado anterior da publicação).
-* **Validação local realizada:** sintaxe do JavaScript extraído da home e existência dos recursos referenciados serão conferidas antes do push; a validação em produção deve registrar o resultado do GitHub Pages e do domínio oficial.
+* **Validação realizada:** sintaxe do JavaScript da home, existência dos recursos referenciados, destaques selecionáveis, detalhes de evento, menu móvel e os redirecionamentos de programação/agenda. O GitHub Pages publicou com sucesso o commit visual `f96245cf4dab884a9df0972c6942b94a19784997`; o domínio oficial foi conferido após a publicação.
