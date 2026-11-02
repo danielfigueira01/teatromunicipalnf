@@ -138,3 +138,14 @@ Os espetáculos cadastrados atualmente no site contam com links diretos da **Sym
 * **Status do GitHub Pages:** [Configurações do Repositório](https://github.com/danielfigueira01/teatromunicipalnf/settings/pages)
 * **Painel Registro.br:** [https://registro.br/painel/](https://registro.br/painel/)
 * **Instagram Oficial:** [@teatromunicipalnf](https://www.instagram.com/teatromunicipalnf/) e [@culturanf](https://www.instagram.com/culturanf/)
+
+---
+
+## 7. Atualização visual da página inicial — novembro de 2026
+
+* **Implementação:** a home passou a ser uma página HTML/CSS/JavaScript independente, preservando os arquivos React existentes para as páginas institucionais.
+* **Arquivos alterados:** `index.html` e `404.html`; adicionados `programacao/index.html` e `agenda/index.html` para encaminhar à seção `/#programacao`.
+* **Recursos preservados:** `CNAME`, `.nojekyll`, favicons e todo o conteúdo existente de `assets/`.
+* **Recursos usados pela nova home:** `event-vivaldi.jpg`, `event-trilhas-geek.jpg`, `event-tributo-porteno.jpg`, `event-agora-e-que-sao-elas.jpg`, `event-travessia-encantada.jpg`, `hero-theater-BQCT0Xtm.jpg` e `teatro-logo-branco-C_85Q_MG.png`.
+* **Referência para reversão:** `331553eebeb1fee10521eba40c9189caab2bf18d` (estado anterior da publicação).
+* **Validação local realizada:** sintaxe do JavaScript extraído da home e existência dos recursos referenciados serão conferidas antes do push; a validação em produção deve registrar o resultado do GitHub Pages e do domínio oficial.
