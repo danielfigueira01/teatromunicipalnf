@@ -149,3 +149,14 @@ Os espetáculos cadastrados atualmente no site contam com links diretos da **Sym
 * **Recursos usados pela nova home:** `event-vivaldi.jpg`, `event-trilhas-geek.jpg`, `event-tributo-porteno.jpg`, `event-agora-e-que-sao-elas.jpg`, `event-travessia-encantada.jpg`, `hero-theater-BQCT0Xtm.jpg` e `teatro-logo-branco-C_85Q_MG.png`.
 * **Referência para reversão:** `331553eebeb1fee10521eba40c9189caab2bf18d` (estado anterior da publicação).
 * **Validação realizada:** sintaxe do JavaScript da home, existência dos recursos referenciados, destaques selecionáveis, detalhes de evento, menu móvel e os redirecionamentos de programação/agenda. O GitHub Pages publicou com sucesso o commit visual `f96245cf4dab884a9df0972c6942b94a19784997`; o domínio oficial foi conferido após a publicação.
+
+---
+
+## 8. Painel de programação
+
+* **Endereço:** `https://teatromunicipalnf.com.br/admin/`.
+* **Acesso:** somente a conta `danielfigueira01@gmail.com` pode criar sessão e alterar a programação.
+* **Como usar:** no primeiro acesso, informe esse e-mail, escolha uma senha de ao menos oito caracteres e clique em **Criar acesso**. Confirme o e-mail recebido pelo Supabase; depois, entre normalmente.
+* **O que o painel faz:** cria, edita, publica/despublica, exclui e organiza até três destaques da abertura. Também aceita cartazes JPG, PNG ou WebP de até 5 MB.
+* **Dados e segurança:** a programação está no projeto Supabase `Teatro Municipal NF` (região São Paulo). A página pública só lê eventos publicados; as permissões de inserção, alteração, exclusão e arquivos de cartaz são protegidas por RLS no banco, além da verificação de e-mail no painel.
+* **Arquivos da integração:** `assets/teatro-supabase.js` concentra a configuração pública do cliente; `assets/theater-data.js` atualiza a home automaticamente; `assets/admin.js` controla o painel.
