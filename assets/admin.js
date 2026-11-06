@@ -1,4 +1,4 @@
-import { theaterAdminEmail, theaterSupabase } from '/assets/teatro-supabase.js';
+import { theaterAdminEmail, theaterSupabase } from '/assets/teatro-supabase.js'; const additionalAdminEmail = 'teatromunicipalnovafriburgo@gmail.com';
 
 const authCard = document.querySelector('#auth-card');
 const app = document.querySelector('#app');
@@ -136,7 +136,7 @@ document.querySelector('#logout').addEventListener('click', async () => { await 
 document.querySelector('#sign-up').addEventListener('click', async () => {
   const email = document.querySelector('#auth-email').value.trim().toLowerCase();
   const password = document.querySelector('#auth-password').value;
-  if (email !== theaterAdminEmail) { showStatus(authStatus, 'Este e-mail não possui autorização administrativa.', 'error'); return; }
+  if (email !== theaterAdminEmail && email !== additionalAdminEmail) { showStatus(authStatus, 'Este e-mail não possui autorização administrativa.', 'error'); return; }
   try {
     const { error } = await theaterSupabase.auth.signUp({ email, password });
     if (error) throw error;
@@ -155,7 +155,7 @@ authForm.addEventListener('submit', async (submitEvent) => {
 
 async function updateAuth() {
   const { data: { user } } = await theaterSupabase.auth.getUser();
-  const allowed = user?.email?.toLowerCase() === theaterAdminEmail;
+  const allowed = [theaterAdminEmail, additionalAdminEmail].includes(user?.email?.toLowerCase());
   authCard.classList.toggle('hidden', Boolean(allowed));
   app.classList.toggle('hidden', !allowed);
   if (allowed) {
