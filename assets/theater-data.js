@@ -107,23 +107,65 @@ const renderFeatured = (events) => {
   setHero(featured[0], featured);
 };
 
-const updateMonthLabel = (events) => {
-  const first = events[0];
-  if (!first) return;
-  const label = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' })
-    .format(new Date(Date.UTC(first.year, first.month - 1, 1))).toUpperCase();
-  document.querySelector('.month').textContent = label;
+const monthKey = (event) => `${event.year}-${String(event.month).padStart(2, '0')}`;
+const monthLabel = (key) => {
+  const [year, month] = key.split('-').map(Number);
+  return new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(Date.UTC(year, month - 1, 1)));
+};
+
+const setupSchedule = (events) => {
+  const select = document.querySelector('#schedule-month');
+  const today = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', timeZone: 'America/Sao_Paulo'
+  }).formatToParts(new Date());
+  const currentMonth = `${today.find((part) => part.type === 'year').value}-${today.find((part) => part.type === 'month').value}`;
+  const months = [...new Set([currentMonth, ...events.map(monthKey)])].sort();
+  select.replaceChildren(...months.map((key) => {
+    const option = document.createElement('option');
+    option.value = key;
+    option.textContent = monthLabel(key);
+    return option;
+  }));
+  select.value = currentMonth;
+  let category = document.querySelector('[data-filter][aria-pressed="true"]')?.dataset.filter || 'all';
+
+  const renderMonth = () => {
+    const monthlyEvents = events.filter((event) => monthKey(event) === select.value);
+    const visibleEvents = monthlyEvents.filter((event) => category === 'all' || event.cat === category || (category === 'Gratuito' && event.free));
+    renderCards(visibleEvents);
+    renderCalendar(monthlyEvents);
+    const title = monthLabel(select.value);
+    document.querySelector('#calendar-title').textContent = title.charAt(0).toUpperCase() + title.slice(1);
+    document.querySelector('#calendar-summary').textContent = monthlyEvents.length
+      ? `Programação de ${title}.`
+      : `Nenhum espetáculo publicado para ${title}.`;
+    const empty = document.querySelector('#empty');
+    empty.textContent = monthlyEvents.length ? 'Nenhum espetáculo nesta categoria.' : 'Nenhum espetáculo publicado para este mês.';
+    empty.style.display = visibleEvents.length ? 'none' : 'block';
+  };
+
+  // Replace the static fallback listeners so month and category share one state.
+  document.querySelectorAll('[data-filter]').forEach((original) => {
+    const button = original.cloneNode(true);
+    original.replaceWith(button);
+    button.addEventListener('click', () => {
+      category = button.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach((filter) => filter.setAttribute('aria-pressed', String(filter === button)));
+      renderMonth();
+    });
+  });
+  select.addEventListener('change', renderMonth);
+  renderMonth();
 };
 
 try {
   const { data, error } = await theaterSupabase.from('events').select('*').eq('published', true).order('event_date').order('event_time');
   if (error) throw error;
-  if (data?.length) {
+  if (data) {
     const events = data.map(toEvent);
-    renderCards(events);
-    renderCalendar(events);
+    setupSchedule(events);
     renderFeatured(events);
-    updateMonthLabel(events);
   }
 } catch (error) {
   console.warn('A programação publicada não pôde ser atualizada.', error);

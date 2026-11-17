@@ -160,3 +160,11 @@ Os espetáculos cadastrados atualmente no site contam com links diretos da **Sym
 * **O que o painel faz:** cria, edita, publica/despublica, exclui e organiza até três destaques da abertura. Também aceita cartazes JPG, PNG ou WebP de até 5 MB.
 * **Dados e segurança:** a programação está no projeto Supabase `Teatro Municipal NF` (região São Paulo). A página pública só lê eventos publicados; as permissões de inserção, alteração, exclusão e arquivos de cartaz são protegidas por RLS no banco, além da verificação de e-mail no painel.
 * **Arquivos da integração:** `assets/teatro-supabase.js` concentra a configuração pública do cliente; `assets/theater-data.js` atualiza a home automaticamente; `assets/admin.js` controla o painel.
+
+
+## 9. Correções de contato e agenda — 17/11/2026
+
+* E-mail público atualizado para `teatromunicipalnovafriburgo@gmail.com`, na home e nas páginas institucionais. O bundle institucional alterado usa uma nova URL para evitar cache antigo.
+* A home oferece seleção de mês, derivada das datas dos eventos publicados. Cartões e agenda usam o mesmo mês e ano; filtros de categoria são preservados ao trocar o mês. O mês inicial acompanha o calendário de São Paulo.
+* Corrigidos o título da agenda e o resumo da programação para acompanhar a seleção. Nenhuma data de evento foi alterada no banco.
+* Arquivos principais: `index.html`, `assets/theater-data.js`, `404.html`, `assets/index-contact-20261117.js`.
